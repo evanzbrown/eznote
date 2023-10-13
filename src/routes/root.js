@@ -9,7 +9,7 @@ require("dotenv").config();
 const upload = multer({ dest: "uploads" });
 const router = express.Router();
 const models = { "chatGPT": "gpt-3.5-turbo", "whisper": "whipser-1" };
-const openai = new OpenAI(process.env["OPENAI_APIKEY"], {"chatGPT": "gpt-3.5-turbo", });
+const openai = new OpenAI(process.env["OPENAI_APIKEY"], models);
 
 const RENDER_OPTIONS = {
     project_title: config.PROJECT_NAME,

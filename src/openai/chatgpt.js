@@ -20,10 +20,15 @@ class ChatGPT {
 
     createChatCompletion(messages) {
         const formData = { model: this.model, messages: messages };
-        console.log(this.getAxiosConfig())
-        this.axios.post(API_URL, formData, this.getAxiosConfig()).then(resp => {
-            console.log(resp);
-        });
+        return new Promise((resolve, reject) => {
+            this.axios.post(API_URL, formData, this.getAxiosConfig()).then(resp => {
+                for(let i in resp.data["choices"]) {
+                    const choice = resp.data["choices"][i];
+                    if (choice["finish_reason"] == "stop") { resolve(choice["message"]); }
+                }
+                reject("No suitable respones found.");
+            });
+        })
     }
 }
 
