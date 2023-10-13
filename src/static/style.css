@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito&display=swap');
+
+body {
+    background-color: #3d3d3d;
+}
+
+.title {
+    background: linear-gradient();
+    color: white;
+    font-family: 'Gabarito';
+    text-shadow: 1px 1px 5px rgb(255, 204, 19);
+    font-size: 50px;
+    text-align: center;
+}
+
+.header-separator {
+    color: white;
+    box-shadow: 1px 1px 5px rgb(255, 204, 19);
+}
