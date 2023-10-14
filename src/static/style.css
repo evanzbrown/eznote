@@ -4,16 +4,119 @@ body {
     background-color: #3d3d3d;
 }
 
+.form-container {
+    text-align: center;
+}
+
+.header {
+    background-color:rgb(43, 43, 43);
+    border-radius: 3px;
+    text-align: center;
+}
+
+form {
+    display: block;
+    background-color: rgb(43, 43, 43);
+    padding: 5px 5px 5px 5px;
+    border-radius: 3px;
+    color: white;
+    display: inline-block;
+}
+
+button[value="submit"] {
+    background-color: #4caf4f;
+    width: 100%;
+    margin: 10px 0 0 0;
+    color: white;
+    font-size: 20px;
+    padding: 5px;
+    cursor: pointer;
+    border: 0px;
+    border-radius: 3px;
+}
+
+button[value="submit"]:hover {
+    margin: 10px 0 0 0;
+    background-color: #45a048;
+    width: 100%;
+}
+
+label {
+    color: white;
+    font-size: 20px;
+    font-family: 'Verdana';
+}
+
+input[type="file"] {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-family: 'Verdana';
+}
+
 .title {
     background: linear-gradient();
     color: white;
     font-family: 'Gabarito';
-    text-shadow: 1px 1px 5px rgb(255, 204, 19);
     font-size: 50px;
     text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    padding: 5px 0 5px 0;
 }
 
 .header-separator {
     color: white;
-    box-shadow: 1px 1px 5px rgb(255, 204, 19);
+}
+
+.info-box {
+    padding: 0 5px 0 5px;
+    margin: 20px 25% 20px 25%;
+    background-color: #555555;
+    border: 1px solid white;
+    border-radius: 3px;
+    text-align: center;
+    font-family: 'Verdana';
+}
+
+.info-content {
+    font-size: 15px;
+}
+
+.info-separator {
+    color: white;
+}
+
+.error {
+    background-color: #ff4a4aff;
+    border-color: rgb(255, 170, 170);
+}
+
+ul { 
+    list-style: none;
+    padding: 0 0 5px 0;
+}
+
+ul li {
+    display: inline-block;
+    background-color: #3d3d3d;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Verdana';
+    font-size: 25px;
+    text-align: center;
+}
+
+.info-container {
+    background-color:rgb(43, 43, 43);
+    color: white;
+    font-family: 'Verdana';
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 25px;
 }

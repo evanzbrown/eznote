@@ -1,2 +1,17 @@
-<%- include("partial/header.ejs", {title: "Home"}) %>
-<%- include("partial/footer.ejs") %>
+<%- include('partial/header.ejs', {title: "Home"}) %>
+<script src="script.js"></script>
+<% if (locals["error"] != undefined) { %>
+<div class="info-box error">
+    <h2 class="info-title">Error Occurred</h2>
+    <hr class="info-separator"/>
+    <p class="info-content"><%= locals["error"] %></p>
+</div>
+<% } %>
+<div class="form-container">
+    <form enctype="multipart/form-data" action="upload" method="POST">
+        <label>Recording: </label>
+        <input type="file" name="file" accept=".wav, .mp3, .m4a">
+        <button id="submit-upload" value="submit">Submit</button>
+    </form>
+</div>
+<%- include('partial/footer.ejs') %>

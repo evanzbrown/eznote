@@ -1,33 +1,47 @@
 const express = require("express");
 const multer = require("multer");
-const fs = require("fs");
-const OpenAI = require("../openai");
-//Project cfg
+const OpenAIController = require("../openai-controller");
 const config = require("../config");
-//Dotenv cfg
+const fs = require("fs");
+const mdtopdf = require("md-to-pdf");
 require("dotenv").config();
 
 const upload = multer();
 const router = express.Router();
-const openai = new OpenAI(process.env["OPENAI_APIKEY"], config.MODELS);
+const openai = new OpenAIController(process.env["OPENAI_APIKEY"], config.MODELS);
 
 const RENDER_OPTIONS = {
     project_title: config.PROJECT_NAME,
 }
 
-router.get("/", (req, res) => {
-    res.render("index", RENDER_OPTIONS);
-});
+function createRenderOptions(options) {
+    if (options == undefined) options = {};
+    let result = options;
+    result["project_title"] = config.PROJECT_NAME;
+    return result;
+}
 
-router.get("/upload", (req, res) => {
-    res.render("upload", RENDER_OPTIONS);
+router.get("/", (req, res) => {
+    res.render("index", createRenderOptions());
 });
 
 router.post("/upload", upload.single("file"), (req, res) => {
-    if (req.file == undefined) { res.render("upload", RENDER_OPTIONS); return; }
-    openai.whipser.transcribe(req.file).then(transcription => {
+    if (req.file == undefined) { res.render("index", createRenderOptions({error: "No file was submitted."})); return; }
+    openai.transcribeAudio(req.file).then(text => {
+        let messages = config.BASE_PROMPT;
+        messages.push({ role: "user", content: text});
+        return openai.createMessageCompletion(messages);
+    }).then(message => {
+        return mdtopdf.mdToPdf({ content: message.content }, { dest: "notes/note.pdf" });
+    }).then(() => {
+        res.download("notes/note.pdf");
+    }).catch(err => {
+        res.render("index", createRenderOptions({error: err}));
     });
-    res.status(200).end();
+});
+
+router.get("/about", (req, res) => {
+    res.render("about", createRenderOptions());
 });
 
 module.exports = router;
