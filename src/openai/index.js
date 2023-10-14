@@ -1,5 +1,5 @@
 const ChatGPT = require("./chatgpt");
-const Whisper = require("./whipser");
+const Whisper = require("./whisper");
 
 class OpenAI {
     constructor(apiKey, models) {

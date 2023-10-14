@@ -5,8 +5,9 @@ const axios = require("axios");
 const API_URL = "https://api.openai.com/v1/audio/transcriptions";
 
 class Whisper {
-    constructor(apiKey) {
+    constructor(apiKey, model) {
         this.apiKey = apiKey;
+        this.model = model;
         this.axios = axios.default;
     }
     
@@ -21,11 +22,12 @@ class Whisper {
 
     transcribe(audioFile) {
         let formData = new FormData();
-        formData.append("file", audioFile);
-        formData.append("model", "whipser-1");
-        formData.append("response_format", "text");
-        this.axios.post(API_URL, formData, this.getAxiosConfig()).then(resp => {
-            console.log(resp);
+        formData.append("model", this.model);
+        formData.append("file", new Blob([audioFile.buffer]), { filename: audioFile.originalname });
+        return new Promise((resolve, reject) => {
+            this.axios.post(API_URL, formData, this.getAxiosConfig()).then(resp => {
+                console.log(resp);
+            });
         });
     }
 }

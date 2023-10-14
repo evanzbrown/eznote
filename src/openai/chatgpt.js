@@ -1,6 +1,14 @@
 const axios = require("axios");
 
 const API_URL = "https://api.openai.com/v1/chat/completions";
+//https://platform.openai.com/docs/api-reference/chat/create
+
+/*
+ChatGPT chat completion request structure:
+    model: model_name
+    messages: an array of message objects that represent the conversation so far
+        message: { role: "role_name", content: "message_content" }
+*/
 
 class ChatGPT {
     constructor(apiKey, model) {
